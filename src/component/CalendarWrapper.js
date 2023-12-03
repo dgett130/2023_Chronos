@@ -1,7 +1,17 @@
 import { Calendar, Whisper, Popover, Badge } from 'rsuite';
 import './CalendarWrapper.css';
+import ModalWrapper from "./modal/ModalWrapper";
+import {useState} from "react";
 
-function CalendarWrapper() {
+function CalendarWrapper({onCalendarClick}) {
+
+    const [openModal, setOpenModal] = useState(true);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    function onDateSelect(date) {
+        onCalendarClick(date);
+    }
+
     function renderCell(date) {
         const list = getTodoList(date);
         const displayList = list.filter((item, index) => index < 2);
@@ -43,7 +53,7 @@ function CalendarWrapper() {
         return null;
     }
 
-    return <Calendar bordered renderCell={renderCell} />;
+    return <Calendar bordered renderCell={renderCell} onSelect={onDateSelect}/>;
 }
 
 function getTodoList(date) {
