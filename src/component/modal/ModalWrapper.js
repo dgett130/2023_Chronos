@@ -25,7 +25,7 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
             <Modal.Body>
                 <Placeholder.Paragraph />
                 <h1>Data selezionata</h1>
-                <br />
+                <br /> {selectedDate?.toDateString()}
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={handleClose} appearance="primary">
