@@ -4,6 +4,7 @@ import CalendarWrapper from "./component/calendar/CalendarWrapper";
 import ModalWrapper from "./component/modal/ModalWrapper";
 import {useState} from "react";
 import Sidebar from "./component/sidebar/Sidebar";
+import NavbarWrapper from "./component/navbar/NavbarWrapper";
 
 function App() {
 
@@ -27,16 +28,23 @@ function App() {
 
 
     return (
-    <div className="App flex flex-row">
-        <div className={`${ expanded ? 'basis-1/6' : ''}`}>
-            <Sidebar onToggleClick={handleSidebarToggle} expanded={expanded}/>
-        </div>
-        <div className={`${ expanded ? 'basis-5/6' : ''}`}>
-            <CalendarWrapper onCalendarClick={handleCalendarClick}/>
-            <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal} selectedDate={selectedDate}/>
+    <div className="App">
+        <div className="flex flex-col">
+            <div className="">
+                <NavbarWrapper/>
+            </div>
+            <div className="flex flex-row">
+                <div className={`${expanded ? 'basis-1/6' : ''}`}>
+                    <Sidebar onToggleClick={handleSidebarToggle} expanded={expanded}/>
+                </div>
+                <div className={`${expanded ? 'basis-5/6' : ''}`}>
+                    <CalendarWrapper onCalendarClick={handleCalendarClick}/>
+                    <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal} selectedDate={selectedDate}/>
+                </div>
+            </div>
         </div>
     </div>
-  );
+    );
 }
 
 export default App;
