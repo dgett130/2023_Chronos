@@ -1,6 +1,6 @@
 import { Calendar, Whisper, Popover, Badge } from 'rsuite';
 import './CalendarWrapper.css';
-import ModalWrapper from "./modal/ModalWrapper";
+import ModalWrapper from "../modal/ModalWrapper";
 import {useState} from "react";
 
 function CalendarWrapper({onCalendarClick}) {
