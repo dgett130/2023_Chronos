@@ -19,20 +19,20 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
     return (
         <Modal backdrop={backdrop} keyboard={false} open={isOpen} onClose={handleClose}>
             <Modal.Header>
-                <Modal.Title>Modal Title</Modal.Title>
+                <Modal.Title>Attività</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
-                <Placeholder.Paragraph />
-                <h1>Data selezionata</h1>
-                <br /> {selectedDate?.toDateString()}
+                <h3>{selectedDate?.toDateString()}</h3>
+                <br/>
+                <Placeholder.Graph/>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={handleClose} appearance="primary">
-                    Ok
+                    Salva
                 </Button>
                 <Button onClick={handleClose} appearance="subtle">
-                    Cancel
+                    Chiudi
                 </Button>
             </Modal.Footer>
         </Modal>
