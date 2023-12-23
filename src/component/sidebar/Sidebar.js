@@ -3,13 +3,16 @@ import {Nav, Sidenav, Toggle} from "rsuite";
 
 function Sidebar(props) {
 
-   const [expanded, setExpanded] = useState(true);
+    function onSidebarToggle() {
+        props.onToggleClick();
+    }
+
    const [activeKey, setActiveKey] = useState('1');
 
     return (
         <div>
-            <Sidenav expanded={expanded} defaultOpenKeys={['3', '4']}>
-                <Sidenav.Toggle expanded={expanded} onToggle={expanded => setExpanded(expanded)} />
+            <Sidenav expanded={props.expanded} defaultOpenKeys={['3', '4']}>
+                <Sidenav.Toggle expanded={props.expanded} onToggle={onSidebarToggle} />
                 <Sidenav.Body>
                     <Nav activeKey={activeKey} onSelect={setActiveKey}>
                         <Nav.Item eventKey="1">

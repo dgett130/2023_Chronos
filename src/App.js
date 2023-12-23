@@ -9,6 +9,7 @@ function App() {
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [expanded, setExpanded] = useState(true);
 
     const handleCalendarClick = (date) => {
         setSelectedDate(date);
@@ -20,13 +21,17 @@ function App() {
         setIsModalOpen(false);
     };
 
+    const handleSidebarToggle = () => {
+        setExpanded(!expanded);
+    };
+
 
     return (
     <div className="App flex flex-row">
-        <div className="basis-1/6">
-            <Sidebar/>
+        <div className={`${ expanded ? 'basis-1/6' : ''}`}>
+            <Sidebar onToggleClick={handleSidebarToggle} expanded={expanded}/>
         </div>
-        <div className="basis-5/6">
+        <div className={`${ expanded ? 'basis-5/6' : ''}`}>
             <CalendarWrapper onCalendarClick={handleCalendarClick}/>
             <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal} selectedDate={selectedDate}/>
         </div>
