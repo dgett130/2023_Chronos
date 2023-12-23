@@ -22,7 +22,7 @@ function CalendarWrapper({onCalendarClick}) {
                 <li>
                     <Whisper
                         placement="top"
-                        trigger="click"
+                        trigger="hover"
                         speaker={
                             <Popover>
                                 {list.map((item, index) => (
@@ -53,7 +53,7 @@ function CalendarWrapper({onCalendarClick}) {
         return null;
     }
 
-    return <Calendar bordered renderCell={renderCell} onSelect={onDateSelect}/>;
+    return <Calendar bordered renderCell={renderCell} onSelect={onDateSelect} />;
 }
 
 function getTodoList(date) {
