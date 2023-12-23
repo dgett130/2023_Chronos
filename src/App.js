@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import CalendarWrapper from "./component/CalendarWrapper";
+import CalendarWrapper from "./component/calendar/CalendarWrapper";
 import ModalWrapper from "./component/modal/ModalWrapper";
 import {useState} from "react";
+import Sidebar from "./component/sidebar/Sidebar";
 
 function App() {
 
@@ -21,9 +22,14 @@ function App() {
 
 
     return (
-    <div className="App">
-     <CalendarWrapper onCalendarClick={handleCalendarClick}/>
-     <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal} selectedDate={selectedDate}/>
+    <div className="App flex flex-row">
+        <div className="basis-1/6">
+            <Sidebar/>
+        </div>
+        <div className="basis-5/6">
+            <CalendarWrapper onCalendarClick={handleCalendarClick}/>
+            <ModalWrapper isOpen={isModalOpen} onClose={handleCloseModal} selectedDate={selectedDate}/>
+        </div>
     </div>
   );
 }
