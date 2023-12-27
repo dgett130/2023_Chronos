@@ -1,5 +1,7 @@
 import {React, useState} from 'react';
-import { Modal, ButtonToolbar, Button, RadioGroup, Radio, Placeholder } from 'rsuite';
+import {Modal, ButtonToolbar, Button, RadioGroup, Radio, Placeholder, Cascader, Slider} from 'rsuite';
+import {mockedDataForJobsCascader} from '../mockData.js';
+import './ModalWrapper.css';
 
 const styles = {
     radioGroupLabel: {
@@ -25,7 +27,15 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
             <Modal.Body>
                 <h3>{selectedDate?.toDateString()}</h3>
                 <br/>
-                <Placeholder.Graph/>
+                {/*<Placeholder.Graph/>*/}
+                <div>
+                    <h4>Progetto</h4>
+                    <Cascader data={mockedDataForJobsCascader} placeholder="Seleziona un progetto"/>
+                </div>
+                <div>
+                    <h4>Ore</h4>
+                    <Slider className="slider" defaultValue={0} min={0} step={1} max={8} graduated progress />
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={handleClose} appearance="primary">
