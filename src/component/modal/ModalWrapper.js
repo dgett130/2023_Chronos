@@ -1,7 +1,8 @@
-import {React, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import {Modal, ButtonToolbar, Button, RadioGroup, Radio, Placeholder, Cascader, Slider} from 'rsuite';
 import {mockedDataForJobsCascader} from '../mockData.js';
 import './ModalWrapper.css';
+import { projectAPI } from '../apis/projectAPI.js';
 
 const styles = {
     radioGroupLabel: {
@@ -17,6 +18,19 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
     const [backdrop, setBackdrop] = useState('static');
     const handleOpen = () => setOpen(true);
     const handleClose = () => onClose();
+
+    const [projectsList, setProjectsList] = useState([]);
+
+    useEffect(() => {
+        projectAPI.getAll().then((response) => {
+            console.log("GET ALL: ", response);
+            setProjectsList(response);
+        })
+            .finally(() => {
+                console.log('Projects list loaded');
+                console.log('Project List:' , projectsList);
+            })
+    }, [])
 
     return (
         <Modal backdrop={backdrop} keyboard={false} open={isOpen} onClose={handleClose}>
