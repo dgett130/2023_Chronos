@@ -5,6 +5,7 @@ import './ModalWrapper.css';
 import { projectAPI } from '../apis/projectAPI.js';
 import {project_typesAPI} from "../apis/project_typesAPI";
 import {mapModalProjectSelection} from "../../utility/responseUtility";
+import { InputNumber } from 'rsuite';
 
 const styles = {
     radioGroupLabel: {
@@ -23,6 +24,7 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
 
     const [projectsList, setProjectsList] = useState([]);
     const [project_types, setProject_types] = useState([]);
+    const [projectHours, setProjectHours] = useState(0);
 
     useEffect(() => {
         projectAPI.getAll().then((response) => {
@@ -53,7 +55,7 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
                 </div>
                 <div>
                     <h4>Ore</h4>
-                    <Slider className="slider" defaultValue={0} min={0} step={1} max={8} graduated progress />
+                    <InputNumber defaultValue={0} min={0} max={8} step={0.50} onChange={handleOreChange}/>
                 </div>
             </Modal.Body>
             <Modal.Footer>
@@ -66,6 +68,10 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
             </Modal.Footer>
         </Modal>
     );
+}
+
+const handleOreChange = (value, event) => {
+    setProjectHours(value);
 }
 
 export default ModalWrapper;
