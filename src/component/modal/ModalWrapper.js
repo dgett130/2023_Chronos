@@ -3,6 +3,8 @@ import {Modal, ButtonToolbar, Button, RadioGroup, Radio, Placeholder, Cascader, 
 import {mockedDataForJobsCascader} from '../mockData.js';
 import './ModalWrapper.css';
 import { projectAPI } from '../apis/projectAPI.js';
+import {project_typesAPI} from "../apis/project_typesAPI";
+import {mapModalProjectSelection} from "../../utility/responseUtility";
 
 const styles = {
     radioGroupLabel: {
@@ -20,17 +22,20 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
     const handleClose = () => onClose();
 
     const [projectsList, setProjectsList] = useState([]);
+    const [project_types, setProject_types] = useState([]);
 
     useEffect(() => {
         projectAPI.getAll().then((response) => {
-            console.log("GET ALL: ", response);
             setProjectsList(response);
-        })
-            .finally(() => {
-                console.log('Projects list loaded');
-                console.log('Project List:' , projectsList);
-            })
-    }, [])
+        }).catch((error) => {
+            console.error("Error: ", error);
+        });
+        project_typesAPI.getAll().then((response) => {
+            setProject_types(response);
+        }).catch((error) => {
+            console.error("Error: ", error);
+        });
+    },[]);
 
     return (
         <Modal backdrop={backdrop} keyboard={false} open={isOpen} onClose={handleClose}>
@@ -44,7 +49,7 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
                 {/*<Placeholder.Graph/>*/}
                 <div>
                     <h4>Progetto</h4>
-                    <Cascader data={mockedDataForJobsCascader} placeholder="Seleziona un progetto"/>
+                    <Cascader data={mapModalProjectSelection(projectsList, project_types)} placeholder="Seleziona un progetto"/>
                 </div>
                 <div>
                     <h4>Ore</h4>

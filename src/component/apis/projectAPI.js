@@ -7,6 +7,7 @@ export const projectAPI = {
         const response = await api.get(`/projects/${name}`, {
             signal: cancel ? cancelApiObject[this.search.name].handleRequestCancellation().signal : undefined,
         });
+        console.log("response", response.data);
         return response.data;
     },
 
