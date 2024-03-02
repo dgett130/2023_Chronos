@@ -24,19 +24,24 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
 
     const [projectsList, setProjectsList] = useState([]);
     const [project_types, setProject_types] = useState([]);
+    const [cascaderData, setCascaderData] = useState([]);
+
     const [projectHours, setProjectHours] = useState(0);
+    const [selectedProject, setSelectedProject] = useState(null);
+
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        projectAPI.getAll().then((response) => {
-            setProjectsList(response);
-        }).catch((error) => {
-            console.error("Error: ", error);
-        });
-        project_typesAPI.getAll().then((response) => {
-            setProject_types(response);
-        }).catch((error) => {
-            console.error("Error: ", error);
+
+        Promise.all([projectAPI.getAll(), project_typesAPI.getAll()])
+        .then(([projects, projectsTypes]) => {
+            const mappedData = mapModalProjectSelection(projects, projectsTypes);
+            setCascaderData(mappedData);
+            setProjectsList(projects);
+            setProject_types(projectsTypes);
+        })
+        .catch((error) => {
+            console.log("Error while fetching projects data: ", error);
         });
     },[]);
 
@@ -44,7 +49,7 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
         setProjectHours(value);
     }
 
-    const handleProjectChange = (value, event) => {
+    const handleProjectChange = (value) => {
         setProjectHours(0);
     }
 
@@ -74,7 +79,7 @@ function ModalWrapper({isOpen, onClose, selectedDate}) {
                         {/*<Placeholder.Graph/>*/}
                         <div>
                             <h4>Progetto</h4>
-                            <Cascader data={mapModalProjectSelection(projectsList, project_types)}
+                            <Cascader data={cascaderData}
                                       onChange={handleProjectChange}
                                       placeholder="Seleziona un progetto"/>
                         </div>

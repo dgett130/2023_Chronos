@@ -1,7 +1,6 @@
 export function mapModalProjectSelection(projects, projectTypes) {
     const result = [];
     projectTypes.forEach((type) => {
-        console.log("Tipo: ",type.nome)
         const typeEntity = {
             label: type.nome,
             value: type.id,
